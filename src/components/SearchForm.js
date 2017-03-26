@@ -21,11 +21,9 @@ class SearchForm extends Component {
 
   render () {
     return (
-      <form onSubmit={this.search}>
-        <div>
-          <input type="text" onChange={this.setUsername} value={this.state.username} placeholder="Github Username"/>
-        </div>
-        <button type="submit">Seearch Profile</button>
+      <form onSubmit={this.search} className="form">
+        <input type="text" className="form-control" onChange={this.setUsername} value={this.state.username} placeholder="Github Username"/>
+        <button className="btn" type="submit">Seearch Profile</button>
       </form>
     );
   }
