@@ -27,7 +27,9 @@ class Profile extends Component {
         });
         this.loadRepos(response.data.repos_url);
       })
-      .catch(console.error); // Redirect to welcome with error message
+      .catch(error => this.props.history.push('/', { message: 'User not found!' }));
+      // .catch(error => console.log(this.props.history));
+      // .catch(error => this.props.history.push('/', 'User not found!'));
   }
 
   loadRepos (reposUrl) {
