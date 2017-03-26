@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import Loading from './Loading';
+import ProfileInfo from './ProfileInfo';
+import ListRepositories from './ListRepositories';
 import axios from 'axios';
 
 class Profile extends Component {
@@ -11,19 +13,27 @@ class Profile extends Component {
       profile: {},
       repos: {}
     }
+
+    this.loadRepos = this.loadRepos.bind(this);
   }
 
   componentWillMount () {
     axios.get(`https://api.github.com/users/${this.props.match.params.username}`)
       .then(response => {
-        // repos_url
         this.setState({
           loading: false,
           username: this.props.match.params.username,
           profile: response.data
         });
+        this.loadRepos(response.data.repos_url);
       })
       .catch(console.error); // Redirect to welcome with error message
+  }
+
+  loadRepos (reposUrl) {
+    axios.get(reposUrl)
+      .then(response => this.setState({ repos: response.data }))
+      .catch(console.error);
   }
 
   render () {
@@ -35,10 +45,9 @@ class Profile extends Component {
 
     return (
       <div>
-        <img src={this.state.profile.avatar_url} alt={this.state.profile.name} title={this.state.profile.name} />
-        <h3>{this.state.profile.name}</h3>
-        <h5>{this.state.profile.login}</h5>
-        <p>{this.state.profile.bio}</p>
+        <ProfileInfo profile={this.state.profile}/>
+
+        <ListRepositories repos={this.state.repos} />
       </div>
     );
   }
