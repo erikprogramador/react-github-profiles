@@ -7,9 +7,8 @@ class Welcome extends Component {
     this.search = this.search.bind(this);
   }
 
-  search (event) {
-    event.preventDefault();
-    console.log(event);
+  search ({ username }) {
+    this.props.history.push(`/profile/${username}`);
   }
 
   render () {

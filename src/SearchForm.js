@@ -6,7 +6,13 @@ class SearchForm extends Component {
     this.state = {
       username: ''
     };
+    this.search = this.search.bind(this);
     this.setUsername = this.setUsername.bind(this);
+  }
+
+  search (event) {
+    event.preventDefault();
+    this.props.search(this.state);
   }
 
   setUsername (event) {
@@ -15,7 +21,7 @@ class SearchForm extends Component {
 
   render () {
     return (
-      <form onSubmit={this.props.search}>
+      <form onSubmit={this.search}>
         <div>
           <input type="text" onChange={this.setUsername} value={this.state.username} placeholder="Github Username"/>
         </div>

@@ -5,6 +5,7 @@ class Profile extends Component {
     return (
       <div>
         {this.props.match.params.username}
+        {console.log(this.props)}
       </div>
     );
   }
